@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, Container, CircularProgress, Box, Typography } from '@mui/material';
+import { Container, CircularProgress, Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import NewsCard from './NewsCard';
 
 interface Article {
@@ -55,7 +56,14 @@ const NewsList: React.FC<NewsListProps> = ({ articles, loading }) => {
     <Container sx={{ py: 6 }} maxWidth="lg">
       <Grid container spacing={3}>
         {articles.map((article, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index} sx={{ aspectRatio: '1/1' }}>
+          <Box 
+            key={index} 
+            sx={{ 
+              width: { xs: '100%', sm: '50%', md: '33.33%' }, 
+              p: 1.5,
+              aspectRatio: '1/1'
+            }}
+          >
             <Box sx={{ height: '100%' }}>
               <NewsCard
                 title={article.title}
@@ -67,7 +75,7 @@ const NewsList: React.FC<NewsListProps> = ({ articles, loading }) => {
                 category={article.source.name.split('.')[0]} // Simple category derivation
               />
             </Box>
-          </Grid>
+          </Box>
         ))}
       </Grid>
     </Container>

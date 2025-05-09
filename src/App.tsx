@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { ThemeProvider, createTheme, CssBaseline, Container, Box, Grid } from '@mui/material';
+import { useMemo, useState, useEffect } from 'react';
+import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import axios from 'axios';
-import Header from './components/Header';
-import NewsList from './components/NewsList';
-import Categories from './components/Categories';
-import SourceSelector from './components/SourceSelector';
+import { 
+  Header, 
+  NewsList, 
+  Categories, 
+  SourceSelector, 
+  HeroSection, 
+  TrendingStrip, 
+  BackToTop 
+} from './components';
 import { useTheme } from './contexts/ThemeContext';
-import HeroSection from './components/HeroSection';
-import TrendingStrip from './components/TrendingStrip';
-import BackToTop from './components/BackToTop';
 
 // Setup API keys with rotation mechanism
 const API_KEYS = [
@@ -159,6 +162,8 @@ function App() {
   const handleTagClick = (tagId: string) => {
     setSelectedTag(tagId);
     fetchNews(tagId, 'general', '');
+    
+    console.log(`Selected tag: ${tagId}, state updated to: ${selectedTag}`);
   };
 
   // Get the featured article (first article) for the hero section
@@ -188,18 +193,18 @@ function App() {
           {/* Filters Section */}
           <Box sx={{ mb: 4 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} md={8}>
+              <Box sx={{ width: { xs: '100%', md: '66.66%' }, p: 1 }}>
                 <Categories 
                   onCategorySelect={handleCategorySelect} 
                   selectedCategory={selectedCategory} 
                 />
-              </Grid>
-              <Grid item xs={12} md={4}>
+              </Box>
+              <Box sx={{ width: { xs: '100%', md: '33.33%' }, p: 1 }}>
                 <SourceSelector 
                   onSourceSelect={handleSourceSelect}
                   selectedSource={selectedSource}
                 />
-              </Grid>
+              </Box>
             </Grid>
           </Box>
           
